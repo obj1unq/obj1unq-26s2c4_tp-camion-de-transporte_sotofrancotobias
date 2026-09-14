@@ -1,0 +1,56 @@
+import src.camion.*
+import src.cosas.*
+describe "Test camion" {
+
+  method initialize() {
+    camion.cargar(knightRider)
+    camion.cargar(bumblebee)
+  }
+
+  test "Carga exitosa" {
+    assert.equals([knightRider, bumblebee], camion.cosas())
+  }
+
+  test "Carga invalida" {
+    assert.throwsExceptionWithMessage("Excede el peso maximo", {camion.cargar(bumblebee)})
+  }
+
+  test "Descarga exitosa" {
+    camion.descargar(knightRider)
+
+    assert.equals([bumblebee], camion.cosas())
+  }
+
+  test "Descarga invalida" {
+    camion.descargar(knightRider)
+
+    assert.throwsExceptionWithMessage("No está cargado knightRider", {camion.descargar(knightRider)})
+  }
+
+  test "Peso total del camion" {
+    assert.equals(2300, camion.pesoTotal())
+  }
+
+  test "Exceso de peso" {
+    assert.that(not camion.excedidoDePeso())
+  }
+
+  test "Objetos peligrosos" {
+    bumblebee.transformar()
+
+    assert.equals([bumblebee], camion.objetosPeligrosos(20))
+  }
+
+  test "Objetos mas peligrosos que knightRider" {
+    assert.equals([bumblebee], camion.objetosMasPeligrososQue(knightRider))
+  }
+
+  test "Si puede circular en ruta" {
+    assert.that(camion.puedeCircularEnRuta(30))
+  }
+
+  test "No puede circular en ruta" {
+    bumblebee.transformar()
+    assert.that(not camion.puedeCircularEnRuta(20))
+  }
+}
