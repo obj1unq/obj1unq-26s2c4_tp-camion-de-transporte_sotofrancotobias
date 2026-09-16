@@ -7,6 +7,7 @@ object camion {
 	
 	method cargar(cosa) {
 		self.validarPeso(cosa)
+		cosa.modificacionCarga()
 		cosas.add(cosa)
 	}
 
@@ -53,5 +54,21 @@ object camion {
 
 	method puedeCircularEnRuta(nivelMaximoPeligrosidad) {
 		return not cosas.any({ cosa => (cosa.nivelPeligrosidad() > nivelMaximoPeligrosidad) })
+	}
+
+	method tieneAlgoQuePesaEntre(min, max) {
+	  return cosas.any({ cosa => (cosa.peso() > min && cosa.peso() < max) })
+	}
+
+	method cosaMasPesada() {
+	  return cosas.max({ cosa => cosa.peso() })
+	}
+
+	method totalBultos() {
+	  return 
+	}
+
+	method pesos() {
+	  return cosas.map({ cosa => cosa.peso() })
 	}
 }
