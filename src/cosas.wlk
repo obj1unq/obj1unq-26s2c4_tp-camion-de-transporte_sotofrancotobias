@@ -7,6 +7,10 @@ object knightRider {
 	method modificacionCarga() {
 	  
 	}
+
+	method bultos() {
+	  return 1
+	}
 }
 
 object bumblebee {
@@ -20,6 +24,10 @@ object bumblebee {
 
 	method modificacionCarga() {
 	  self.transformar()
+	}
+
+	method bultos() {
+	  return 2
 	}
 }
 
@@ -46,6 +54,12 @@ object paqueteLadrillos {
 	method modificacionCarga() {
 	  cantLadrillos -= 12
 	}
+
+	method bultos() {
+	  return if (self.cantLadrillos() <= 100) 1 
+	  	else if (self.cantLadrillos() > 100 && self.cantLadrillos() <= 300) 2
+		else 3
+	}
 }
 
 object arenaGranel {
@@ -57,6 +71,10 @@ object arenaGranel {
 
 	method modificacionCarga() {
 	  peso -= 15
+	}
+
+	method bultos() {
+	  return 1
 	}
 }
 
@@ -75,6 +93,10 @@ object bateriaAntiaerea {
 
 	method misilesCargados() {
 	  return misilesCargados
+	}
+
+	method bultos() {
+	  return if (not misilesCargados) 1 else 2
 	}
 }
 
@@ -113,6 +135,14 @@ object contenedorPortuario {
 	method modificacionCarga() {
 	  cosasAdentro.forEach({ cosa => cosa.modificacionCarga()})
 	}
+
+	method bultos() {
+	  return 1 + self.cantBultos()
+	}
+
+	method cantBultos() {
+	  return cosasAdentro.sum({ cosa => cosa.bultos() })
+	}
 }
 
 object residuosRadioactivos {
@@ -124,6 +154,10 @@ object residuosRadioactivos {
 
 	method modificacionCarga() {
 	  peso += 15
+	}
+
+	method bultos() {
+	  return 1
 	}
 }
 
@@ -140,5 +174,9 @@ object embalajeSeguridad {
 
 	method modificacionCarga() {
 	  
+	}
+
+	method bultos() {
+	  return 2
 	}
 }

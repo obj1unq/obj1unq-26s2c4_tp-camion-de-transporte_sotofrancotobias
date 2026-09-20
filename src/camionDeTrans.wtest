@@ -36,8 +36,6 @@ describe "Test camión" {
   }
 
   test "Objetos peligrosos" {
-    bumblebee.transformar()
-
     assert.equals([bumblebee], camion.objetosPeligrosos(20))
   }
 
@@ -50,7 +48,6 @@ describe "Test camión" {
   }
 
   test "No puede circular en ruta" {
-    bumblebee.transformar()
     assert.that(not camion.puedeCircularEnRuta(20))
   }
 }
@@ -92,6 +89,14 @@ describe "Test camión 2" {
     camion.cargar(knightRider)
 
     assert.that(camion.tieneAlgoQuePesaEntre(600, 1000))
+  }
+
+  test "Cantidad de bultos en el camión" {
+    camion.cargar(bumblebee)
+    camion.cargar(knightRider)
+    camion.cargar(bateriaAntiaerea)
+
+    assert.equals(5, camion.totalBultos())
   }
 
   test "Pesos del camión" {

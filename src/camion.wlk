@@ -65,7 +65,7 @@ object camion {
 	}
 
 	method totalBultos() {
-	  return 
+	  return cosas.sum({ cosa => cosa.bultos() })
 	}
 
 	method pesos() {
